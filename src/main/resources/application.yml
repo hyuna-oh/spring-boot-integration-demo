@@ -1,0 +1,57 @@
+spring:
+  profiles:
+    active: development
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  datasource:
+    url: jdbc:postgresql://192.168.33.10:5432/test
+    hikari:
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbc-url: jdbc:log4jdbc:postgresql://192.168.33.10:5432/postgres
+#      driver-class-name: org.postgresql.Driver
+#      jdbc-url: jdbc:postgresql://192.168.33.10:5432/temp
+      connection-init-sql: select 1
+      username: hyunaoh
+      password: hyunaoh
+
+logging:
+  level:
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.zaxxer.hikari: TRACE
+    org.springframework.web: debug
+    sql: error
+    jdbc: debug
+    jdbc.sqlonly: debug
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "development"
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 100
+---
+spring:
+  config:
+    activate:
+      on-profile: "production"
+server:
+  port: 9090
+  tomcat:
+    threads:
+      max: 100
+
+#    hikari:
+#      jdbc-url: jdbc:log4jdbc:postgresql://192.168.33.10:5432/postgres
+#      username: postgres
+#      password: postgres
+#      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#      connection-test-query: SELECT 1
+#      maximum-pool-size: 10
+#      minimum-idle: 3
+#    sql-script-encoding: UTF-8
+#    continue-on-error: true
+#    initialization-mode: always
