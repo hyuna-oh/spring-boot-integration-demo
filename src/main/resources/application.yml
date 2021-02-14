@@ -1,0 +1,38 @@
+spring:
+  profiles:
+    active: production
+  datasource:
+    hikari:
+#      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#      jdbc-url: jdbc:log4jdbc:postgresql://192.168.33.10:5432/postgres
+#      driver-class-name: org.postgresql.Driver
+#      jdbc-url: jdbc:postgresql://192.168.33.10:5432/temp
+#      username: hyunaoh
+#      password: hyunaoh
+
+logging:
+  level:
+    org.springframework.boot: INFO
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.zaxxer.hikari: TRACE
+
+---
+spring:
+  config:
+    activate:
+      on-profile: "development"
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 100
+---
+spring:
+  config:
+    activate:
+      on-profile: "production"
+server:
+  port: 9090
+  tomcat:
+    threads:
+      max: 100
